@@ -10,10 +10,17 @@ pipeline{
             }
         }
 
+        stage('Docker login') {
+            steps {
+                echo 'Docker login'
+                sh 'docker logout'
+                sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
+            }
+        } 
+
         stage('Build') {
             steps {
                 echo 'Build Stage'
-                //sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
                 sh 'docker build -t therealdevito/react-test -f ./client/Dockerfile.dev ./client'
             }
         }
