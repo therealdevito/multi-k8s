@@ -42,10 +42,12 @@ pipeline{
                 sh 'docker push therealdevito/multi-server:latest'
                 sh 'docker push therealdevito/multi-worker:latest'
 
-                sh 'kubectl apply -f k8s'
-                sh 'kubectl set image deployments/server-deployment server=therealdevito/multi-server:latest'
-                sh 'kubectl set image deployments/client-deployment client=therealdevito/multi-client:latest'
-                sh 'kubectl set image deployments/worker-deployment worker=therealdevito/multi-worker:latest'
+                withCredentials([string(credentialsId: 'jenkins-token-dzvd6', variable: 'TOKEN')]){
+                    sh 'kubectl apply -f k8s --token $TOKEN'
+                    sh 'kubectl set image deployments/server-deployment server=therealdevito/multi-server:latest'
+                    sh 'kubectl set image deployments/client-deployment client=therealdevito/multi-client:latest'
+                    sh 'kubectl set image deployments/worker-deployment worker=therealdevito/multi-worker:latest'
+                }
             }
         }
     }
