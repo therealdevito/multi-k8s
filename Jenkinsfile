@@ -34,18 +34,19 @@ pipeline{
 
         stage('Deploy') {
             steps {
-                sh 'docker build -t therealdevito/multi-client:latest  -f ./client/Dockerfile ./client'
-                sh 'docker build -t therealdevito/multi-server:latest  -f ./server/Dockerfile ./server' 
-                sh 'docker build -t therealdevito/multi-worker:latest  -f ./worker/Dockerfile ./worker' 
+                sh 'docker build -t therealdevito/multi-client:latest -f ./client/Dockerfile ./client'
+                sh 'docker build -t therealdevito/multi-server:latest -f ./server/Dockerfile ./server' 
+                sh 'docker build -t therealdevito/multi-worker:latest -f ./worker/Dockerfile ./worker' 
 
                 sh 'docker push therealdevito/multi-client:latest' 
                 sh 'docker push therealdevito/multi-server:latest'
                 sh 'docker push therealdevito/multi-worker:latest'
                 
-                sh 'kubectl create serviceaccount jenkins'
+                //sh 'kubectl create serviceaccount jenkins'
 
                 //withCredentials([string(credentialsId: 'jenkins-token-dzvd6', variable: 'TOKEN')]){
-                sh 'kubectl get serviceaccounts jenkins | grep -wo "jenkins-token-....." | kubectl apply -f k8s --token'
+                //sh 'kubectl get serviceaccounts jenkins | grep -wo "jenkins-token-....." | kubectl apply -f /k8s --token'
+                sh 'kubectl apply -f /k8s'
                 sh 'kubectl set image deployments/server-deployment server=therealdevito/multi-server:latest'
                 sh 'kubectl set image deployments/client-deployment client=therealdevito/multi-client:latest'
                 sh 'kubectl set image deployments/worker-deployment worker=therealdevito/multi-worker:latest'
