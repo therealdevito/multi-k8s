@@ -47,7 +47,7 @@ pipeline{
                 */
                 sh 'kubectl config --kubeconfig=kube-config use-context jenkins-context'
               
-                withCredentials([kubeconfigFile(credentialsId: 'kube-config', variable: 'KUBECONFIG')]){
+                withCredentials([kubeconfigFile(credentialsId: 'k8s', variable: 'KUBECONFIG')]){
                     sh 'kubectl version'
                 /*
                 sh 'kubectl apply -f /k8s' //--token $JENKINS_TOKEN'
