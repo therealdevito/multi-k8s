@@ -3,7 +3,7 @@ pipeline{
 
     stages {
 
-        stage('Checkout') {
+        /*stage('Checkout') {
             steps {
                 echo 'Checkout stage'
                 git 'https://github.com/therealdevito/multi-k8s.git'
@@ -30,25 +30,27 @@ pipeline{
                 echo 'Running tests'
                 sh 'docker run therealdevito/react-test npm test -- --coverage'
             }
-        } 
+        }*/
 
         stage('Deploy') {
             steps {
-                sh 'docker build -t therealdevito/multi-client:latest -f ./client/Dockerfile ./client'
+                /*sh 'docker build -t therealdevito/multi-client:latest -f ./client/Dockerfile ./client'
                 sh 'docker build -t therealdevito/multi-server:latest -f ./server/Dockerfile ./server' 
                 sh 'docker build -t therealdevito/multi-worker:latest -f ./worker/Dockerfile ./worker' 
 
                 sh 'docker push therealdevito/multi-client:latest' 
                 sh 'docker push therealdevito/multi-server:latest'
                 sh 'docker push therealdevito/multi-worker:latest'
-                
-                sh 'kubectl config use-context minikube'
-                withCredentials([string(credentialsId: 'k8s', variable: 'TOKEN')]){
-                sh 'kubectl apply -f /k8s --token $JENKINS_TOKEN'
+                */
+                sh 'kubectl config --kubeconfig=kube-config use-context jenkins-context'
+                sh 'kubectl status'
+                //withCredentials([string(credentialsId: 'k8s', variable: 'TOKEN')]){
+                /*sh 'kubectl apply -f /k8s' //--token $JENKINS_TOKEN'
                 sh 'kubectl set image deployments/server-deployment server=therealdevito/multi-server:latest'
                 sh 'kubectl set image deployments/client-deployment client=therealdevito/multi-client:latest'
                 sh 'kubectl set image deployments/worker-deployment worker=therealdevito/multi-worker:latest'
-                }
+                */
+                //}
             }
         }
     }
