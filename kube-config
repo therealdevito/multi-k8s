@@ -1,7 +1,7 @@
 apiVersion: v1
 clusters:
 - cluster:
-    certificate-authority: $JENKINS_HOME/.minikube/ca.crt
+    certificate-authority: /var/lib/jenkins/.minikube/ca.crt
     extensions:
     - extension:
         last-update: Fri, 20 Aug 2021 10:40:44 EEST
@@ -28,5 +28,5 @@ preferences: {}
 users:
 - name: jenkins-user
   user:
-    client-certificate: $JENKINS_HOME/.minikube/profiles/minikube/client.crt
-    client-key: $JENKINS_HOME/.minikube/profiles/minikube/client.key
+    client-certificate: /var/lib/jenkins/.minikube/profiles/minikube/client.crt
+    client-key: /var/lib/jenkins/.minikube/profiles/minikube/client.key
