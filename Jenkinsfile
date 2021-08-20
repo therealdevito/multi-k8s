@@ -43,7 +43,7 @@ pipeline{
                 sh 'docker push therealdevito/multi-worker:latest'
                 */
                 sh 'kubectl config --kubeconfig=kube-config use-context jenkins-context'
-                sh 'kubectl status'
+                sh 'kubectl version'
                 //withCredentials([string(credentialsId: 'k8s', variable: 'TOKEN')]){
                 /*sh 'kubectl apply -f /k8s' //--token $JENKINS_TOKEN'
                 sh 'kubectl set image deployments/server-deployment server=therealdevito/multi-server:latest'
