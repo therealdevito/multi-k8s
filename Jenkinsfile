@@ -42,7 +42,7 @@ pipeline{
                 sh 'docker push therealdevito/multi-server:latest'
                 sh 'docker push therealdevito/multi-worker:latest'
                 
-                sh 'kubectl config use-context jenkins'
+                sh 'kubectl config use-context minikube'
                 withCredentials([string(credentialsId: 'k8s', variable: 'TOKEN')]){
                 sh 'kubectl apply -f /k8s --token $JENKINS_TOKEN'
                 sh 'kubectl set image deployments/server-deployment server=therealdevito/multi-server:latest'
