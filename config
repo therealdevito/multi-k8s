@@ -1,7 +1,14 @@
 apiVersion: v1
-clusters: null
-contexts: null
-current-context: ""
+clusters:
+- cluster: 
+  name: jenkins-cluster
+contexts: 
+- context:
+    cluster: jenkins-cluster
+    namespace: jenkins
+    user:jenkins:serviceaccount:jenkins-sa
+  name: jenkins-context
+current-context: jenkins-context
 kind: Config
 preferences: {}
 users:
