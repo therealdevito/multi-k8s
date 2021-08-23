@@ -1,2 +1,3 @@
-.DS_Store
 deprecated/
+deploy.sh
+.travis.yml
