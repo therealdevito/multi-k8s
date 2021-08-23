@@ -3,7 +3,7 @@ pipeline{
 
     stages {
 
-        /*
+        
         stage('Checkout') {
             steps {
                 echo 'Checkout stage'
@@ -32,11 +32,11 @@ pipeline{
                 sh 'docker run therealdevito/react-test npm test -- --coverage'
             }
         }
-        */
+        
 
         stage('Deploy') {
             steps {
-                /*
+                
                 sh 'docker build -t therealdevito/multi-client:latest -f ./client/Dockerfile ./client'
                 sh 'docker build -t therealdevito/multi-server:latest -f ./server/Dockerfile ./server' 
                 sh 'docker build -t therealdevito/multi-worker:latest -f ./worker/Dockerfile ./worker' 
@@ -44,19 +44,16 @@ pipeline{
                 sh 'docker push therealdevito/multi-client:latest' 
                 sh 'docker push therealdevito/multi-server:latest'
                 sh 'docker push therealdevito/multi-worker:latest'
-                */
+                
                 sh 'kubectl --kubeconfig=config config set-context --current --user=jenkins-sa'
                 sh 'kubectl --kubeconfig=config version'
               
-                //withCredentials([kubeconfigFile(credentialsId: 'k8s', variable: 'KUBECONFIG')]){
-                    //sh 'kubectl version'
-                /*
-                sh 'kubectl apply -f /k8s' //--token $JENKINS_TOKEN'
-                sh 'kubectl set image deployments/server-deployment server=therealdevito/multi-server:latest'
-                sh 'kubectl set image deployments/client-deployment client=therealdevito/multi-client:latest'
-                sh 'kubectl set image deployments/worker-deployment worker=therealdevito/multi-worker:latest'
-                */
-                //}
+                sh 'kubectl --kubeconfig=config apply -f /k8s' //--token $JENKINS_TOKEN'
+                sh 'kubectl --kubeconfig=config set image deployments/server-deployment server=therealdevito/multi-server:latest'
+                sh 'kubectl --kubeconfig=config set image deployments/client-deployment client=therealdevito/multi-client:latest'
+                sh 'kubectl --kubeconfig=config set image deployments/worker-deployment worker=therealdevito/multi-worker:latest'
+                
+                
             }
         }
     }
