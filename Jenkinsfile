@@ -45,9 +45,9 @@ pipeline{
                 sh 'docker push therealdevito/multi-server:latest'
                 sh 'docker push therealdevito/multi-worker:latest'
                 */
-                sh 'kubectl config --kubeconfig=kube-config use-context jenkins-context'
+                sh 'kubectl config set-context --current --user=jenkins-sa'
               
-                withCredentials([kubeconfigFile(credentialsId: 'k8s', variable: 'KUBECONFIG')]){
+                //withCredentials([kubeconfigFile(credentialsId: 'k8s', variable: 'KUBECONFIG')]){
                     sh 'kubectl version'
                 /*
                 sh 'kubectl apply -f /k8s' //--token $JENKINS_TOKEN'
@@ -55,7 +55,7 @@ pipeline{
                 sh 'kubectl set image deployments/client-deployment client=therealdevito/multi-client:latest'
                 sh 'kubectl set image deployments/worker-deployment worker=therealdevito/multi-worker:latest'
                 */
-                }
+                //}
             }
         }
     }
