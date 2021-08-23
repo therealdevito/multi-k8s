@@ -45,7 +45,7 @@ pipeline{
                 sh 'docker push therealdevito/multi-server:latest'
                 sh 'docker push therealdevito/multi-worker:latest'
                 */
-                sh 'kubectl --kubeconfig=config set-context --current=jenkins-sa'
+                sh 'kubectl --kubeconfig=config config set-context --current=jenkins-sa'
                 sh 'kubectl --kubeconfig=config version'
               
                 //withCredentials([kubeconfigFile(credentialsId: 'k8s', variable: 'KUBECONFIG')]){
