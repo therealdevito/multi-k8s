@@ -48,7 +48,7 @@ pipeline{
                 sh 'kubectl --kubeconfig=config config set-context --current --user=jenkins-sa'
                 sh 'kubectl --kubeconfig=config version'
               
-                sh 'kubectl --kubeconfig=config apply -f /k8s' //--token $JENKINS_TOKEN'
+                sh 'kubectl --kubeconfig=config apply -f k8s'
                 sh 'kubectl --kubeconfig=config set image deployments/server-deployment server=therealdevito/multi-server:latest'
                 sh 'kubectl --kubeconfig=config set image deployments/client-deployment client=therealdevito/multi-client:latest'
                 sh 'kubectl --kubeconfig=config set image deployments/worker-deployment worker=therealdevito/multi-worker:latest'
