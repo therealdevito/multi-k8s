@@ -1,17 +1,35 @@
 apiVersion: v1
 clusters:
-- cluster: 
-  name: jenkins-cluster
-contexts: 
+- cluster:
+    certificate-authority: /home/rucs/.minikube/ca.crt
+    extensions:
+    - extension:
+        last-update: Mon, 23 Aug 2021 16:55:00 EEST
+        provider: minikube.sigs.k8s.io
+        version: v1.22.0
+      name: cluster_info
+    server: https://192.168.49.2:8443
+  name: minikube
+contexts:
 - context:
-    cluster: jenkins-cluster
-    namespace: jenkins
-    user: jenkins:serviceaccount:jenkins-sa
-  name: jenkins-context
-current-context: jenkins-context
+    cluster: minikube
+    extensions:
+    - extension:
+        last-update: Mon, 23 Aug 2021 16:55:00 EEST
+        provider: minikube.sigs.k8s.io
+        version: v1.22.0
+      name: context_info
+    namespace: default
+    user: minikube
+  name: minikube
+current-context: minikube
 kind: Config
 preferences: {}
 users:
 - name: jenkins-sa
   user:
     token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjdsaDFyQ0phX2Q0RE0wQmF6NlVkM2pYR2RXeFZ4YmZiWW9EdXNFWDNmbEkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJqZW5raW5zIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImplbmtpbnMtc2EtdG9rZW4tY3ZwYnAiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiamVua2lucy1zYSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImFiMTgwNWZiLWJlNDctNGI1ZC04YzJmLWI2ZDkwMWI2ZmFhZCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpqZW5raW5zOmplbmtpbnMtc2EifQ.OL2rctxh4QQ3d3Tldpj6MaKQ--Tpp74i-Gn6YKaULBtJ2ptUi6m86AdBoxUh_Vw-sklo5-X8vWhyFVv7s4DtuB9JdQYJMu8K_v3BHBAOU4WzrAmv_vLI3Y72r4ehZRNwC_ADirLsjTcMiK2DIJL0XSsajf9w8uQcW0F9OemIfUA52sEkIovmq0-G0xxH-Cbu6V-g153vEYtP6kz1lwbPptCfidZtv99zOwtkAPbRTo-n3GZuejoCztT6XlggGs88Su4hWOuoNxicY3zrrQjlz1ntYVzRNpg9q_Y3gUUTkDfemN1uZNJGBIO_O6fTrsLXTHmdDTY2isCqYr_xdSiuRA
+- name: minikube
+  user:
+    client-certificate: /home/rucs/.minikube/profiles/minikube/client.crt
+    client-key: /home/rucs/.minikube/profiles/minikube/client.key
