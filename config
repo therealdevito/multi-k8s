@@ -6,7 +6,7 @@ contexts:
 - context:
     cluster: jenkins-cluster
     namespace: jenkins
-    user:jenkins:serviceaccount:jenkins-sa
+    user: jenkins:serviceaccount:jenkins-sa
   name: jenkins-context
 current-context: jenkins-context
 kind: Config
